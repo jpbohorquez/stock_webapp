@@ -1,15 +1,28 @@
+import streamlit as st
+import os, sys
+
+@st.cache_resource
+def installff():
+  os.system('sbase install geckodriver')
+  os.system('ln -s /home/appuser/venv/lib/python3.8/site-packages/selenium/webdriver/geckodriver /home/appuser/venv/bin/geckodriver')
+
+_ = installff()
+from selenium import webdriver
+from selenium.webdriver import FirefoxOptions
+
+
 import pandas as pd
 import requests
 import datetime as dt
 import yfinance as yf
 import holidays
 import numpy as np
-import streamlit as st
+# import streamlit as st
 from pandas.api.types import is_numeric_dtype
 from yahooquery import Ticker
 from stocksymbol import StockSymbol
 from math import ceil
-from selenium import webdriver
+# from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
@@ -53,10 +66,13 @@ def val_driver(driver):  # Si retorna falso se descarta el cache.
 
 @st.cache_resource(validate=val_driver)
 def get_driver():
-    options = Options()
-    options.add_argument('--disable-gpu')
-    options.add_argument("--headless=new")
-    return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    opts = FirefoxOptions()
+    opts.add_argument("--headless")
+    return webdriver.Firefox(options=opts)
+    # options = Options()
+    # options.add_argument('--disable-gpu')
+    # options.add_argument("--headless=new")
+    # return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
 @st.cache_data
 def get_api_symbols(api_key):
@@ -143,6 +159,9 @@ st.write('La fuente principal de información es el sitio web [macrotrends](http
 st.write('Este sitio comprende alrededor de ~6000 acciones. A continuación, se puede descargar un archivo con el resumen de todas las acciones disponibles.')
 st.write('**NOTA:** La descarga de esta información se realiza 1 vez cada 30 días y puede tardar unos minutos.')
 
+# TODO: probar en try y catch y si falla subir archivo
+# TODO: crear página que muestre codigo para descargar el df_master
+# TODO: probar web scraping mediante firefox y no chrome
 df_master = get_available_stock( url = 'https://www.macrotrends.net/stocks/stock-screener')
 # driver.quit()
 st.download_button(
