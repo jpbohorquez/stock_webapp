@@ -1,6 +1,11 @@
 import streamlit as st
 import os, sys
 
+st.set_page_config(
+    page_title="Stock Webapp",
+    layout='wide'
+)
+
 @st.cache_resource
 def installff():
   os.system('sbase install geckodriver')
@@ -31,10 +36,6 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.common.exceptions import TimeoutException
 from webdriver_manager.chrome import ChromeDriverManager
 
-st.set_page_config(
-    page_title="Stock Webapp",
-    layout='wide'
-)
 
 # region: Funciones auxiliares
 def next_business_day(date = dt.date.today(), country = 'US', market='NYSE'):
