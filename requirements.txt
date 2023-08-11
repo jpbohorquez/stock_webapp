@@ -5,3 +5,6 @@ yahooquery
 stocksymbol
 selenium
 webdriver_manager
+openpyxl
+bs4
+lxml
