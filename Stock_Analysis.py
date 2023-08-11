@@ -256,10 +256,11 @@ if opcion == opciones[0]:
     try:
         df_master = get_available_stock( url = 'https://www.macrotrends.net/stocks/stock-screener')
         df_master.to_excel('files/df_master.xlsx')
-    except:
+    except Exception as e:
         st.error('Ocurrió un error en el proceso de WebScraping. Por favor suba el archivo manualmente.')
         st.info('Para ejecutar el código de WebScraping en su computador siga las instrucciones en la sección "Acciones Disponibles".',icon='🗨️')
         df_master = pd.DataFrame()
+        st.error(e)
 elif opcion == opciones[1]:
     # Reading new file
     file_master = st.file_uploader(

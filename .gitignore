@@ -1,3 +1,4 @@
 .streamlit/secrets.toml
-files/
+files/*
+!files/df_master.xlsx
 geckodriver.log
