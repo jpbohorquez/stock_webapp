@@ -399,7 +399,7 @@ if not df_master.empty:
         st.download_button(        
                     label=':video_game: Archivo Análisis',
                     help='Descargar información de análisis.',
-                    data=convertir_csv(df_analysis_show),
+                    data=convertir_csv(df_analysis),
                     file_name=f'data_analysis.csv',
                     mime='text/csv',
                 )
