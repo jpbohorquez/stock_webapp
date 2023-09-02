@@ -359,7 +359,7 @@ if not df_master.empty:
             df_data_y = pd.merge(left=df_data_y, right=df_prices, how='left', left_on=['date_price','symbol'], right_on=['Date','symbol'])
             # Se eliminan columnas innecesarias
             df_data_y.drop(columns=['diff_year','Date'], inplace=True)
-            df_data_y = df_data_y.loc[(df_data_y['Equity']>0)&(df_data_y['Shares']>0),:]
+            df_data_y = df_data_y.loc[(df_data_y['Equity']!=0)&(df_data_y['Shares']>0),:]
             # Se calculan indicadores
             df_data_y['PE'] = df_data_y['close']/df_data_y['EPS']
             df_data_y['LeverR'] = df_data_y['Assets']/df_data_y['Equity']
